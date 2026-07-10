@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nexus Software — Soluciones tecnológicas a medida</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0a0d12;
@@ -23,7 +23,8 @@
   ::selection{background:var(--accent);color:#0a0d12;}
   a{color:inherit;text-decoration:none;}
   .mono{font-family:'JetBrains Mono',monospace;}
-  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:-0.01em;}
+  .cyan{color:var(--accent);}
 
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
@@ -33,46 +34,51 @@
   /* SCROLL PROGRESS */
   #progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:80;width:0%;transition:width .1s linear;}
 
+  /* NODE MARK (brand icon, reused via <use>) */
+  #markDefs{position:absolute;width:0;height:0;overflow:hidden;}
+  .mark{display:block;filter:drop-shadow(0 0 6px rgba(76,224,210,0.25));}
+  .mark-nav{width:30px;height:30px;}
+  .mark-hero{width:clamp(64px,9vw,120px);height:clamp(64px,9vw,120px);animation:markPulse 4s ease-in-out infinite;}
+  .mark-footer{width:26px;height:26px;}
+  @keyframes markPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+
   /* NAV */
   nav{
     position:fixed;top:0;left:0;right:0;z-index:50;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:22px 5vw;
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
+    padding:20px 5vw;
     background:linear-gradient(180deg, rgba(10,13,18,0.92), rgba(10,13,18,0));
     backdrop-filter:blur(6px);
     transition:padding .3s ease, background .3s ease;
   }
-  nav.scrolled{padding:14px 5vw;background:rgba(10,13,18,0.85);border-bottom:1px solid var(--line);}
-  .logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.2rem;letter-spacing:-0.01em;display:flex;align-items:center;gap:10px;}
-  .logo-mark{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2.4s ease-in-out infinite;}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.55;transform:scale(1.3);}}
-  .nav-links{display:flex;gap:36px;align-items:center;}
-  .nav-links a:not(.nav-cta){font-size:0.9rem;color:var(--text-dim);transition:color .2s ease;position:relative;}
-  .nav-links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--accent);transition:width .25s ease;}
-  .nav-links a:not(.nav-cta):hover{color:var(--text);}
-  .nav-links a:not(.nav-cta):hover::after{width:100%;}
+  nav.scrolled{padding:13px 5vw;background:rgba(10,13,18,0.9);border-bottom:1px solid var(--line);}
+  .logo-lockup{display:flex;align-items:center;gap:12px;}
+  .logo-lockup .word-main{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;line-height:1;letter-spacing:-0.01em;}
+  .logo-lockup .word-sub{font-family:'JetBrains Mono',monospace;font-size:0.55rem;letter-spacing:0.28em;color:var(--text-dim);margin-top:4px;display:block;}
+  .nav-links{display:flex;gap:34px;align-items:center;}
+  .nav-links a{font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-dim);transition:color .2s ease;position:relative;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--accent);transition:width .25s ease;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a:hover::after{width:100%;}
   .nav-cta{
-    font-family:'JetBrains Mono',monospace;font-size:0.8rem;padding:9px 18px;border:1px solid var(--accent);border-radius:2px;
-    color:var(--accent) !important;transition:background .2s ease, color .2s ease;position:relative;overflow:hidden;
+    font-family:'JetBrains Mono',monospace;font-size:0.78rem;padding:10px 18px;border:1px solid var(--accent);border-radius:2px;
+    color:var(--accent) !important;transition:background .2s ease, color .2s ease;position:relative;overflow:hidden;white-space:nowrap;
   }
   .nav-cta:hover{background:var(--accent);color:var(--bg) !important;}
 
   /* HERO */
-  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 5vw;}
+  .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 5vw 80px;text-align:center;}
   #nodeCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0.55;}
   .glow{position:absolute;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:1;
     background:radial-gradient(circle, rgba(76,224,210,0.10), transparent 70%);
-    transform:translate(-50%,-50%);transition:left .4s ease, top .4s ease;left:70%;top:35%;}
-  .hero-content{position:relative;z-index:2;max-width:920px;}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:22px;display:block;}
-  .hero h1{font-size:clamp(2.4rem, 6vw, 4.8rem);line-height:1.08;margin-bottom:26px;font-weight:500;}
-  .hero h1 .grad{
-    font-style:italic;font-weight:600;
-    background:linear-gradient(100deg, var(--accent), var(--accent-2));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .hero p{font-size:1.15rem;color:var(--text-dim);max-width:560px;line-height:1.6;margin-bottom:40px;font-family:'Inter',sans-serif;}
-  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+    transform:translate(-50%,-50%);transition:left .4s ease, top .4s ease;left:50%;top:40%;}
+  .hero-content{position:relative;z-index:2;max-width:760px;display:flex;flex-direction:column;align-items:center;}
+  .hero-wordmark{display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .hero-wordmark .word-main{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(2.6rem,9vw,5.2rem);line-height:0.95;letter-spacing:-0.01em;}
+  .hero-wordmark .word-sub{font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem,1.6vw,1rem);letter-spacing:0.4em;color:var(--text-dim);margin-left:0.4em;}
+  .hero-tagline{font-family:'JetBrains Mono',monospace;font-size:clamp(0.8rem,1.6vw,1.05rem);letter-spacing:0.28em;text-transform:uppercase;color:var(--accent);margin-top:30px;}
+  .hero-sub{color:var(--text-dim);max-width:480px;line-height:1.65;margin-top:22px;font-size:1.02rem;font-family:'Inter',sans-serif;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:38px;}
   .btn-primary{
     font-family:'JetBrains Mono',monospace;font-size:0.85rem;background:var(--accent);color:var(--bg);
     padding:15px 28px;border-radius:2px;font-weight:500;display:inline-block;position:relative;overflow:hidden;
@@ -93,16 +99,16 @@
   .btn-ghost:hover{border-color:var(--accent-2);background:rgba(124,111,240,0.08);transform:translateY(-2px);}
 
   .hero-content > *{opacity:0;transform:translateY(18px);animation:heroIn .8s cubic-bezier(.16,1,.3,1) forwards;}
-  .hero-content > .eyebrow{animation-delay:.1s;}
-  .hero-content > h1{animation-delay:.25s;}
-  .hero-content > p{animation-delay:.45s;}
+  .hero-content > .hero-wordmark{animation-delay:.1s;}
+  .hero-content > .hero-tagline{animation-delay:.3s;}
+  .hero-content > .hero-sub{animation-delay:.45s;}
   .hero-content > .hero-actions{animation-delay:.6s;}
   @keyframes heroIn{to{opacity:1;transform:translateY(0);}}
 
-  .scroll-hint{position:absolute;bottom:36px;left:5vw;z-index:2;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);display:flex;align-items:center;gap:10px;opacity:0;animation:heroIn .8s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.9s;}
-  .scroll-hint .line{width:32px;height:1px;background:var(--text-dim);position:relative;overflow:hidden;}
-  .scroll-hint .line::after{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-100%);animation:slide 2.2s ease-in-out infinite;}
-  @keyframes slide{50%{transform:translateX(0);}100%{transform:translateX(100%);}}
+  .scroll-chevron{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:heroIn .8s cubic-bezier(.16,1,.3,1) forwards;animation-delay:.9s;}
+  .scroll-chevron .lbl{font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;color:var(--text-dim);}
+  .scroll-chevron svg{width:18px;height:18px;color:var(--accent);animation:chevronBounce 1.8s ease-in-out infinite;}
+  @keyframes chevronBounce{0%,100%{transform:translateY(0);opacity:0.5;}50%{transform:translateY(7px);opacity:1;}}
 
   /* MARQUEE */
   .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-elevated);padding:18px 0;overflow:hidden;white-space:nowrap;}
@@ -118,59 +124,70 @@
   .reveal.in{opacity:1;transform:translateY(0);}
 
   section{padding:120px 5vw;position:relative;}
-  .section-head{max-width:640px;margin-bottom:64px;}
-  .section-head .eyebrow{margin-bottom:16px;display:block;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;}
-  .section-head h2{font-size:clamp(1.9rem,3.6vw,2.7rem);line-height:1.2;font-weight:500;}
-  .section-head p{color:var(--text-dim);margin-top:18px;font-size:1.05rem;line-height:1.6;font-family:'Inter',sans-serif;}
+  .section-head{max-width:680px;margin-bottom:56px;}
+  .section-head .eyebrow{margin-bottom:18px;display:block;font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--accent);letter-spacing:0.08em;}
+  .big-headline{font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.08;font-weight:700;}
+  .section-head p{color:var(--text-dim);margin-top:18px;font-size:1.05rem;line-height:1.6;font-family:'Inter',sans-serif;max-width:520px;}
 
+  /* SERVICIOS — horizontal gallery */
   .services{background:var(--bg-elevated);border-bottom:1px solid var(--line);}
-  .service-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:auto auto;gap:1px;background:var(--line);border:1px solid var(--line);}
-  .service-card{background:var(--bg-elevated);padding:44px;transition:background .3s ease;position:relative;overflow:hidden;}
-  .service-card::before{content:'';position:absolute;left:0;top:0;width:2px;height:0;background:var(--accent);transition:height .35s ease;}
-  .service-card:hover::before{height:100%;}
-  .service-card:hover{background:#161c26;}
-  .service-card.featured{grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;}
-  .service-card .icon{width:36px;height:36px;margin-bottom:26px;color:var(--accent);animation:floatIcon 4s ease-in-out infinite;}
-  .service-card:nth-child(2) .icon{animation-delay:.3s;}
-  .service-card:nth-child(3) .icon{animation-delay:.6s;}
-  .service-card:nth-child(4) .icon{animation-delay:.9s;}
-  @keyframes floatIcon{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-  .service-card.featured .icon{width:46px;height:46px;}
-  .service-card h3{font-size:1.25rem;margin-bottom:12px;font-weight:500;}
-  .service-card.featured h3{font-size:1.7rem;}
-  .service-card p{color:var(--text-dim);font-size:0.95rem;line-height:1.6;font-family:'Inter',sans-serif;}
-  .service-card.featured .num{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);align-self:flex-end;}
+  .gallery{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+  .gallery::-webkit-scrollbar{height:4px;}
+  .gallery::-webkit-scrollbar-thumb{background:var(--line);}
+  .gcard{position:relative;flex:0 0 300px;height:420px;scroll-snap-align:start;overflow:hidden;background:var(--bg-card);}
+  .gcard-bg{position:absolute;inset:0;transition:transform .5s ease;}
+  .gcard:hover .gcard-bg{transform:scale(1.05);}
+  .gcard:nth-child(1) .gcard-bg{background:
+    repeating-linear-gradient(115deg, rgba(76,224,210,0.06) 0px, rgba(76,224,210,0.06) 1px, transparent 1px, transparent 34px),
+    radial-gradient(circle at 80% 85%, rgba(76,224,210,0.18), transparent 55%),
+    linear-gradient(160deg, #12161e, #0a0d12);}
+  .gcard:nth-child(2) .gcard-bg{background:
+    repeating-radial-gradient(circle at 20% 25%, rgba(124,111,240,0.16) 0, rgba(124,111,240,0.16) 2px, transparent 2px, transparent 26px),
+    linear-gradient(200deg, #14121e, #0a0d12);}
+  .gcard:nth-child(3) .gcard-bg{background:
+    repeating-linear-gradient(-60deg, rgba(76,224,210,0.05) 0px, rgba(76,224,210,0.05) 2px, transparent 2px, transparent 22px),
+    radial-gradient(circle at 15% 15%, rgba(124,111,240,0.14), transparent 50%),
+    linear-gradient(160deg, #10151d, #0a0d12);}
+  .gcard:nth-child(4) .gcard-bg{background:
+    conic-gradient(from 200deg at 75% 20%, rgba(76,224,210,0.12), transparent 40%),
+    repeating-linear-gradient(45deg, rgba(124,111,240,0.05) 0px, rgba(124,111,240,0.05) 1px, transparent 1px, transparent 30px),
+    linear-gradient(180deg, #12161e, #0a0d12);}
+  .gcard-content{position:absolute;left:0;right:0;bottom:0;padding:28px;background:linear-gradient(to top, rgba(10,13,18,0.96) 15%, rgba(10,13,18,0.55) 60%, transparent 100%);}
+  .gcard-line{display:block;width:34px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));margin-bottom:14px;}
+  .gcard h3{font-size:1.2rem;margin-bottom:10px;font-weight:600;}
+  .gcard p{color:var(--text-dim);font-size:0.9rem;line-height:1.55;font-family:'Inter',sans-serif;}
+  .scroll-cue{display:flex;align-items:center;gap:10px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);}
+  .scroll-cue svg{width:16px;height:16px;animation:arrowMove 1.6s ease-in-out infinite;}
+  @keyframes arrowMove{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
 
-  .approach{max-width:1200px;margin:0 auto;}
-  .approach-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:64px;}
-  .approach-top .stat{font-family:'Fraunces',serif;font-size:3.4rem;font-weight:600;color:var(--accent);line-height:1;}
-  .approach-top .stat-label{color:var(--text-dim);font-size:0.9rem;margin-top:8px;max-width:220px;font-family:'Inter',sans-serif;}
-  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative;}
-  .timeline::before{content:'';position:absolute;top:11px;left:0;right:0;height:1px;background:var(--line);}
-  .timeline::after{
-    content:'';position:absolute;top:11px;left:0;height:1px;background:var(--accent-2);
-    width:0;transition:width 1.4s cubic-bezier(.16,1,.3,1);
-  }
-  .timeline.in::after{width:100%;}
-  .timeline-item{position:relative;padding-top:34px;}
-  .timeline-item::before{content:'';position:absolute;top:0;left:0;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--accent-2);transition:background .3s ease, transform .4s ease;z-index:1;}
-  .timeline-item.in::before{background:var(--accent-2);transform:scale(1.15);}
-  .timeline-item .tag{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--accent-2);display:block;margin-bottom:10px;}
-  .timeline-item p{color:var(--text-dim);font-size:0.92rem;line-height:1.6;font-family:'Inter',sans-serif;}
+  /* NOSOTROS */
+  .about-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:72px;align-items:center;max-width:1180px;margin:0 auto;}
+  .about-steps{list-style:none;margin-top:36px;display:flex;flex-direction:column;gap:20px;}
+  .about-steps li{padding-top:16px;border-top:1px solid var(--line);}
+  .about-steps .tag{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--accent-2);letter-spacing:0.08em;display:block;margin-bottom:6px;}
+  .about-steps p{color:var(--text-dim);font-size:0.92rem;line-height:1.55;font-family:'Inter',sans-serif;}
+  .about-visual{position:relative;aspect-ratio:1/1;border:1px solid var(--line);border-radius:4px;background:radial-gradient(circle at 30% 30%, rgba(124,111,240,0.10), transparent 55%),radial-gradient(circle at 75% 75%, rgba(76,224,210,0.08), transparent 55%);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .about-visual svg{width:78%;height:78%;}
 
+  /* CONTACTO */
   .contact{background:radial-gradient(circle at 20% 20%, rgba(124,111,240,0.08), transparent 50%),radial-gradient(circle at 80% 80%, rgba(76,224,210,0.06), transparent 50%);}
-  .contact-inner{display:grid;grid-template-columns:1.1fr 0.9fr;gap:80px;max-width:1100px;margin:0 auto;align-items:start;}
-  .contact h2{font-size:clamp(2rem,4vw,2.9rem);line-height:1.2;margin-bottom:22px;font-weight:500;}
-  .contact-desc{color:var(--text-dim);font-size:1.05rem;line-height:1.65;max-width:480px;font-family:'Inter',sans-serif;}
-  .contact-list{display:flex;flex-direction:column;gap:0;margin-top:8px;}
-  .contact-row{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-top:1px solid var(--line);overflow:hidden;position:relative;}
-  .contact-row:last-child{border-bottom:1px solid var(--line);}
-  .contact-row .label{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.06em;}
-  .contact-row .value{font-family:'Fraunces',serif;font-weight:500;font-size:1.1rem;transition:color .2s ease, transform .2s ease;display:inline-block;}
-  .contact-row a.value:hover{color:var(--accent);transform:translateX(6px);}
+  .contact-intro{max-width:640px;margin:0 auto 56px;text-align:center;}
+  .contact-intro p{color:var(--text-dim);margin-top:18px;font-size:1.05rem;line-height:1.6;font-family:'Inter',sans-serif;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;max-width:760px;margin:0 auto;background:var(--line);border:1px solid var(--line);}
+  .contact-card{background:var(--bg-elevated);padding:38px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;transition:background .2s ease;}
+  .contact-card:hover{background:#161c26;}
+  .contact-card.filled{background:var(--accent);color:var(--bg);}
+  .contact-card.filled:hover{background:var(--accent);}
+  .contact-card .cicon{width:26px;height:26px;}
+  .contact-card .clabel{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;}
+  .contact-card.filled .clabel{color:var(--bg);}
+  .contact-card:not(.filled) .clabel{color:var(--text-dim);}
+  .contact-card .cvalue{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.05rem;transition:transform .2s ease;}
+  .contact-card:not(.filled) .cvalue:hover{color:var(--accent);transform:translateY(-2px);}
+  .contact-card.filled .cvalue:hover{transform:translateY(-2px);}
 
   footer{padding:36px 5vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-  footer .logo{font-size:1rem;}
+  footer .logo-lockup .word-main{font-size:0.95rem;}
   footer .fine{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--text-dim);}
 
   a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
@@ -189,30 +206,18 @@
   @media (hover:none), (pointer:coarse){ .cursor-dot,.cursor-ring{display:none;} }
   @media (hover:hover) and (pointer:fine){ body{cursor:none;} a,button{cursor:none;} }
 
-  /* WORD REVEAL */
-  .word-reveal .word{display:inline-block;opacity:0;transform:translateY(100%) rotate(2deg);transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1);}
-  .word-reveal.in .word{opacity:1;transform:translateY(0) rotate(0);}
-  .word-reveal{overflow:hidden;}
-
-  /* HORIZONTAL SHOWCASE */
-  .service-scroll{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
-  .service-scroll::-webkit-scrollbar{height:4px;}
-  .service-scroll::-webkit-scrollbar-thumb{background:var(--line);}
-  .service-scroll .service-card{flex:0 0 320px;scroll-snap-align:start;}
-  .service-scroll .service-card.featured{flex:0 0 420px;}
-  .scroll-cue{display:flex;align-items:center;gap:10px;margin-top:24px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-dim);}
-  .scroll-cue svg{width:16px;height:16px;animation:arrowMove 1.6s ease-in-out infinite;}
-  @keyframes arrowMove{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
-
   @media (max-width: 860px){
     .nav-links{display:none;}
     .glow{display:none;}
-    .service-grid{grid-template-columns:1fr;}
-    .service-card.featured{grid-row:auto;}
-    .timeline{grid-template-columns:1fr;gap:36px;}
-    .timeline::before,.timeline::after{display:none;}
-    .contact-inner{grid-template-columns:1fr;gap:48px;}
+    .about-grid{grid-template-columns:1fr;gap:44px;}
+    .about-visual{max-width:320px;margin:0 auto;}
     section{padding:90px 6vw;}
+    .gcard{flex:0 0 78vw;}
+    .contact-grid{max-width:100%;}
+  }
+  @media (max-width: 480px){
+    .nav-cta{padding:8px 12px;font-size:0.7rem;}
+    .contact-card{padding:28px 16px;}
   }
 </style>
 </head>
@@ -223,29 +228,73 @@
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 
+<svg id="markDefs" aria-hidden="true">
+  <defs>
+    <linearGradient id="nmGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4ce0d2"/>
+      <stop offset="1" stop-color="#7c6ff0"/>
+    </linearGradient>
+    <symbol id="nodemark" viewBox="0 0 40 40">
+      <g fill="none" stroke="url(#nmGrad)" stroke-width="1" stroke-linecap="round" opacity="0.8">
+        <line x1="20" y1="4" x2="35.22" y2="15.06"/>
+        <line x1="20" y1="4" x2="29.4" y2="32.94"/>
+        <line x1="20" y1="4" x2="10.6" y2="32.94"/>
+        <line x1="20" y1="4" x2="4.78" y2="15.06"/>
+        <line x1="35.22" y1="15.06" x2="29.4" y2="32.94"/>
+        <line x1="35.22" y1="15.06" x2="10.6" y2="32.94"/>
+        <line x1="35.22" y1="15.06" x2="4.78" y2="15.06"/>
+        <line x1="29.4" y1="32.94" x2="10.6" y2="32.94"/>
+        <line x1="29.4" y1="32.94" x2="4.78" y2="15.06"/>
+        <line x1="10.6" y1="32.94" x2="4.78" y2="15.06"/>
+      </g>
+      <circle cx="20" cy="4" r="3" fill="#4ce0d2"/>
+      <circle cx="35.22" cy="15.06" r="3" fill="#4ce0d2"/>
+      <circle cx="29.4" cy="32.94" r="3" fill="#7c6ff0"/>
+      <circle cx="10.6" cy="32.94" r="3" fill="#7c6ff0"/>
+      <circle cx="4.78" cy="15.06" r="3" fill="#4ce0d2"/>
+    </symbol>
+  </defs>
+</svg>
+
 <nav id="mainNav">
-  <div class="logo"><span class="logo-mark"></span>NEXUS SOFTWARE</div>
+  <a href="#inicio" class="logo-lockup">
+    <svg class="mark mark-nav"><use href="#nodemark"></use></svg>
+    <span>
+      <span class="word-main">NEXUS</span>
+      <span class="word-sub">SOFTWARE</span>
+    </span>
+  </a>
   <div class="nav-links">
+    <a href="#inicio">Qué hacemos</a>
     <a href="#servicios">Servicios</a>
-    <a href="#enfoque">Enfoque</a>
+    <a href="#nosotros">Nosotros</a>
     <a href="#contacto">Contacto</a>
-    <a href="https://wa.me/17201853799?text=Hola%2C%20quiero%20cotizar%20un%20proyecto%20con%20Nexus%20Software" target="_blank" rel="noopener" class="nav-cta">Cuéntanos tu proyecto</a>
   </div>
+  <a href="https://wa.me/17201853799?text=Hola%2C%20quiero%20cotizar%20un%20proyecto%20con%20Nexus%20Software" target="_blank" rel="noopener" class="nav-cta">Cuéntanos tu proyecto</a>
 </nav>
 
-<header class="hero">
+<header class="hero" id="inicio">
   <canvas id="nodeCanvas"></canvas>
   <div class="glow" id="glow"></div>
   <div class="hero-content">
-    <span class="eyebrow mono">// Soluciones tecnológicas a medida</span>
-    <h1>Cada negocio tiene un problema distinto.<br>Nosotros <span class="grad">construimos la conexión</span> que lo resuelve.</h1>
-    <p>Diseñamos y desarrollamos software, sistemas, chatbots y páginas web adaptados a la forma real en que operas — no plantillas genéricas, herramientas hechas para tu negocio.</p>
+    <div class="hero-wordmark">
+      <svg class="mark mark-hero"><use href="#nodemark"></use></svg>
+      <div>
+        <div class="word-main">NEXUS</div>
+        <div class="word-sub">SOFTWARE</div>
+      </div>
+    </div>
+    <span class="hero-tagline">Soluciones tecnológicas a medida</span>
+    <p class="hero-sub">Diseñamos y desarrollamos software, chatbots, páginas web y automatización de procesos — hechos para la forma real en que operas.</p>
     <div class="hero-actions">
       <a href="https://wa.me/17201853799?text=Hola%2C%20quiero%20cotizar%20un%20proyecto%20con%20Nexus%20Software" target="_blank" rel="noopener" class="btn-primary"><span>Cuéntanos tu proyecto →</span></a>
       <a href="#servicios" class="btn-ghost">Ver qué hacemos</a>
     </div>
   </div>
-  <div class="scroll-hint"><span class="line"></span>DESPLÁZATE</div>
+  <div class="scroll-chevron">
+    <span class="lbl mono">DESPLÁZATE</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 9l7 7 7-7"/></svg>
+  </div>
 </header>
 
 <div class="marquee">
@@ -254,33 +303,42 @@
 
 <section id="servicios" class="services">
   <div class="section-head reveal">
-    <span class="eyebrow">// Servicios</span>
-    <h2 class="word-reveal">Un punto de contacto para toda tu infraestructura digital</h2>
+    <span class="eyebrow">[ 01 — SERVICIOS ]</span>
+    <h2 class="big-headline">Lo que<br><span class="cyan">construimos</span></h2>
     <p>No trabajamos con un solo tipo de solución. Analizamos el problema y construimos con la tecnología que corresponde.</p>
   </div>
-  <div class="service-scroll">
-    <div class="service-card featured reveal">
-      <div>
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="1"/><path d="M8 21h8M12 18v3"/></svg>
+  <div class="gallery">
+    <div class="gcard reveal">
+      <div class="gcard-bg"></div>
+      <div class="gcard-content">
+        <span class="gcard-line"></span>
         <h3>Software a medida</h3>
-        <p>Sistemas de gestión, punto de venta, control de inventario y herramientas internas diseñadas alrededor de cómo trabaja tu equipo, no al revés.</p>
+        <p>Sistemas de gestión, punto de venta, control de inventario y herramientas internas diseñadas alrededor de cómo trabaja tu equipo.</p>
       </div>
-      <span class="num mono">01</span>
     </div>
-    <div class="service-card reveal">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01M8 15c1 1.2 2.4 2 4 2s3-.8 4-2"/></svg>
-      <h3>Chatbots</h3>
-      <p>Automatización de conversaciones para atención al cliente, ventas o soporte, integrados a los canales que ya usas.</p>
+    <div class="gcard reveal">
+      <div class="gcard-bg"></div>
+      <div class="gcard-content">
+        <span class="gcard-line"></span>
+        <h3>Chatbots</h3>
+        <p>Automatización de conversaciones para atención al cliente, ventas o soporte, integrados a los canales que ya usas.</p>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M8 21V9"/></svg>
-      <h3>Páginas web</h3>
-      <p>Sitios rápidos, claros y hechos para convertir visitas en clientes — sin plantillas recicladas.</p>
+    <div class="gcard reveal">
+      <div class="gcard-bg"></div>
+      <div class="gcard-content">
+        <span class="gcard-line"></span>
+        <h3>Páginas web</h3>
+        <p>Sitios rápidos, claros y hechos para convertir visitas en clientes — sin plantillas recicladas.</p>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg>
-      <h3>Automatización de procesos</h3>
-      <p>Identificamos tareas repetitivas en tu operación y las conectamos con sistemas que las resuelven solas.</p>
+    <div class="gcard reveal">
+      <div class="gcard-bg"></div>
+      <div class="gcard-content">
+        <span class="gcard-line"></span>
+        <h3>Automatización de procesos</h3>
+        <p>Identificamos tareas repetitivas en tu operación y las conectamos con sistemas que las resuelven solas.</p>
+      </div>
     </div>
   </div>
   <div class="scroll-cue reveal">
@@ -289,67 +347,93 @@
   </div>
 </section>
 
-<section id="enfoque" class="approach">
-  <div class="approach-top reveal">
-    <div class="section-head" style="margin-bottom:0;">
-      <span class="eyebrow">// Cómo trabajamos</span>
-      <h2 class="word-reveal">Empezamos por entender el negocio, no por vender tecnología</h2>
+<section id="nosotros">
+  <div class="about-grid">
+    <div class="reveal">
+      <span class="eyebrow mono">[ 02 — NOSOTROS ]</span>
+      <h2 class="big-headline" style="margin-top:18px;">Empezamos por <span class="cyan">entender</span><br>el negocio</h2>
+      <p style="color:var(--text-dim);margin-top:20px;font-size:1.05rem;line-height:1.65;max-width:480px;">No vendemos tecnología por vender. Antes de proponer una solución entendemos tu operación real: qué proceso quieres resolver y cómo trabaja tu equipo hoy.</p>
+      <ul class="about-steps">
+        <li class="reveal">
+          <span class="tag mono">DIAGNÓSTICO</span>
+          <p>Entendemos tu operación antes de proponer nada — sin plantillas ni soluciones genéricas.</p>
+        </li>
+        <li class="reveal">
+          <span class="tag mono">PROPUESTA</span>
+          <p>Definimos alcance, tecnología y tiempos con claridad, sin letra chica.</p>
+        </li>
+        <li class="reveal">
+          <span class="tag mono">DESARROLLO</span>
+          <p>Construimos con comunicación constante — sabes en qué etapa está tu proyecto.</p>
+        </li>
+        <li class="reveal">
+          <span class="tag mono">ACOMPAÑAMIENTO</span>
+          <p>El trabajo no termina en la entrega. Damos soporte continuo a lo que construimos.</p>
+        </li>
+      </ul>
     </div>
-    <div>
-      <div class="stat"><span id="statNum">0</span>%</div>
-      <div class="stat-label">a medida — sin plantillas ni soluciones genéricas</div>
-    </div>
-  </div>
-  <div class="timeline" id="timeline">
-    <div class="timeline-item reveal">
-      <span class="tag">DIAGNÓSTICO</span>
-      <p>Entendemos tu operación real antes de proponer una solución — qué proceso quieres resolver y cómo trabaja tu equipo hoy.</p>
-    </div>
-    <div class="timeline-item reveal">
-      <span class="tag">PROPUESTA</span>
-      <p>Definimos alcance, tecnología y tiempos con claridad, sin letra chica ni promesas genéricas.</p>
-    </div>
-    <div class="timeline-item reveal">
-      <span class="tag">DESARROLLO</span>
-      <p>Construimos con comunicación constante — sabes en qué etapa está tu proyecto en todo momento.</p>
-    </div>
-    <div class="timeline-item reveal">
-      <span class="tag">ACOMPAÑAMIENTO</span>
-      <p>El trabajo no termina en la entrega. Damos soporte continuo a lo que construimos.</p>
+    <div class="about-visual reveal">
+      <svg viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#212630" stroke-width="1" stroke-dasharray="2 6"/>
+        <circle cx="100" cy="100" r="58" fill="none" stroke="#212630" stroke-width="1" stroke-dasharray="2 6"/>
+        <g stroke="url(#nmGrad)" stroke-width="1" opacity="0.6">
+          <line x1="100" y1="30" x2="162" y2="70"/>
+          <line x1="162" y1="70" x2="150" y2="150"/>
+          <line x1="150" y1="150" x2="60" y2="165"/>
+          <line x1="60" y1="165" x2="35" y2="90"/>
+          <line x1="35" y1="90" x2="100" y2="30"/>
+          <line x1="100" y1="30" x2="150" y2="150"/>
+          <line x1="162" y1="70" x2="60" y2="165"/>
+          <line x1="35" y1="90" x2="150" y2="150"/>
+        </g>
+        <circle cx="100" cy="30" r="5" fill="#4ce0d2"/>
+        <circle cx="162" cy="70" r="4" fill="#4ce0d2"/>
+        <circle cx="150" cy="150" r="6" fill="#7c6ff0"/>
+        <circle cx="60" cy="165" r="4" fill="#7c6ff0"/>
+        <circle cx="35" cy="90" r="5" fill="#4ce0d2"/>
+      </svg>
     </div>
   </div>
 </section>
 
 <section id="contacto" class="contact">
-  <div class="contact-inner">
-    <div class="reveal">
-      <span class="eyebrow mono">// Contacto</span>
-      <h2 class="word-reveal">¿Tienes un problema que resolver?</h2>
-      <p class="contact-desc">Cuéntanos qué necesitas. Respondemos por correo, WhatsApp o Instagram — sin formularios largos ni procesos complicados.</p>
-    </div>
-    <div class="contact-list reveal">
-      <div class="contact-row">
-        <span class="label mono">Correo</span>
-        <a class="value" href="mailto:nexus.softwareadmin@gmail.com">nexus.softwareadmin@gmail.com</a>
-      </div>
-      <div class="contact-row">
-        <span class="label mono">Teléfono</span>
-        <a class="value" href="tel:+17201853799">720 185 3799</a>
-      </div>
-      <div class="contact-row">
-        <span class="label mono">Teléfono</span>
-        <a class="value" href="tel:+527731226745">773 122 6745</a>
-      </div>
-      <div class="contact-row">
-        <span class="label mono">Instagram</span>
-        <a class="value" href="https://instagram.com/nexus.softwareadmin" target="_blank" rel="noopener">@nexus.softwareadmin</a>
-      </div>
-    </div>
+  <div class="contact-intro reveal">
+    <span class="eyebrow mono">[ 03 — CONTACTO ]</span>
+    <h2 class="big-headline" style="margin-top:18px;">¿Tienes un problema que<br><span class="cyan">resolver</span>?</h2>
+    <p>Cuéntanos qué necesitas. Respondemos por correo, WhatsApp o Instagram — sin formularios largos ni procesos complicados.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <a class="contact-card filled" href="mailto:nexus.softwareadmin@gmail.com">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      <span class="clabel">Correo</span>
+      <span class="cvalue">nexus.softwareadmin@gmail.com</span>
+    </a>
+    <a class="contact-card" href="https://wa.me/17201853799?text=Hola%2C%20quiero%20cotizar%20un%20proyecto%20con%20Nexus%20Software" target="_blank" rel="noopener">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.5 8.5 0 01-12.4 7.55L3 20l1.02-5.4A8.5 8.5 0 1121 11.5z"/><path d="M8.5 10.5c0 3 2.5 5.5 5.5 5.5"/></svg>
+      <span class="clabel">WhatsApp</span>
+      <span class="cvalue">720 185 3799</span>
+    </a>
+    <a class="contact-card" href="tel:+527731226745">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2C10.5 22 2 13.5 2 6a2 2 0 012-2z"/></svg>
+      <span class="clabel">Teléfono</span>
+      <span class="cvalue">773 122 6745</span>
+    </a>
+    <a class="contact-card" href="https://instagram.com/nexus.softwareadmin" target="_blank" rel="noopener">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+      <span class="clabel">Instagram</span>
+      <span class="cvalue">@nexus.softwareadmin</span>
+    </a>
   </div>
 </section>
 
 <footer>
-  <div class="logo"><span class="logo-mark"></span>NEXUS SOFTWARE</div>
+  <a href="#inicio" class="logo-lockup">
+    <svg class="mark mark-footer"><use href="#nodemark"></use></svg>
+    <span>
+      <span class="word-main">NEXUS</span>
+      <span class="word-sub">SOFTWARE</span>
+    </span>
+  </a>
   <span class="fine mono">© 2026 Nexus Software. Soluciones tecnológicas a medida.</span>
 </footer>
 
@@ -388,23 +472,6 @@
       btn.addEventListener('mouseleave', ()=>{ btn.style.transform = 'translate(0,0)'; });
     });
   }
-
-  /* split headings into words for scroll reveal */
-  document.querySelectorAll('.word-reveal').forEach(h=>{
-    const text = h.textContent;
-    h.innerHTML = text.split(' ').map(w=>`<span class="word">${w}&nbsp;</span>`).join('');
-  });
-  const wordIO = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const words = entry.target.querySelectorAll('.word');
-        words.forEach((w,i)=> w.style.transitionDelay = reduceMotion ? '0s' : (i*0.045)+'s');
-        entry.target.classList.add('in');
-        wordIO.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.4});
-  document.querySelectorAll('.word-reveal').forEach(el=> wordIO.observe(el));
 
   /* internal anchor links: scroll manually instead of relying on href="#id" navigation */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -453,7 +520,7 @@
     groups[key].push(el);
   });
   Object.values(groups).forEach(list=>{
-    list.forEach((el,i)=> el.style.transitionDelay = reduceMotion ? '0s' : (i*0.1)+'s');
+    list.forEach((el,i)=> el.style.transitionDelay = reduceMotion ? '0s' : (i*0.08)+'s');
   });
 
   const io = new IntersectionObserver((entries)=>{
@@ -461,33 +528,7 @@
       if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
     });
   }, {threshold:0.15});
-  document.querySelectorAll('.reveal, .timeline-item').forEach(el=> io.observe(el));
-
-  /* timeline line draw + stat count-up, triggered once */
-  const timeline = document.getElementById('timeline');
-  const statNum = document.getElementById('statNum');
-  let counted = false;
-  const timelineIO = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        timeline.classList.add('in');
-        if(!counted){
-          counted = true;
-          let val = 0;
-          const dur = reduceMotion ? 0 : 900;
-          const start = performance.now();
-          function tick(now){
-            const p = dur===0 ? 1 : Math.min((now-start)/dur,1);
-            statNum.textContent = Math.round(p*100);
-            if(p<1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        }
-        timelineIO.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.3});
-  timelineIO.observe(timeline);
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
   /* node network signature element */
   const canvas = document.getElementById('nodeCanvas');
