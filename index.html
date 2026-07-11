@@ -31,10 +31,8 @@
     .reveal{opacity:1 !important; transform:none !important;}
   }
 
-  /* SCROLL PROGRESS */
   #progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:80;width:0%;transition:width .1s linear;}
 
-  /* NODE MARK (brand icon, reused via <use>) */
   #markDefs{position:absolute;width:0;height:0;overflow:hidden;}
   .mark{display:block;filter:drop-shadow(0 0 6px rgba(76,224,210,0.25));}
   .mark-nav{width:30px;height:30px;}
@@ -42,7 +40,6 @@
   .mark-footer{width:26px;height:26px;}
   @keyframes markPulse{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
 
-  /* NAV */
   nav{
     position:fixed;top:0;left:0;right:0;z-index:50;
     display:flex;align-items:center;justify-content:space-between;gap:24px;
@@ -66,7 +63,6 @@
   }
   .nav-cta:hover{background:var(--accent);color:var(--bg) !important;}
 
-  /* INTRO — laptop zoom on scroll */
   .intro-stage{position:relative;height:260vh;}
   .intro-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;}
   #nodeCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0.55;}
@@ -121,7 +117,6 @@
     .intro-stage{height:220vh;}
   }
 
-  /* MARQUEE */
   .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-elevated);padding:18px 0;overflow:hidden;white-space:nowrap;}
   .marquee-track{display:inline-flex;animation:scrollLeft 26s linear infinite;}
   .marquee-track span{
@@ -140,7 +135,6 @@
   .big-headline{font-size:clamp(2.1rem,4.6vw,3.4rem);line-height:1.08;font-weight:700;}
   .section-head p{color:var(--text-dim);margin-top:18px;font-size:1.05rem;line-height:1.6;font-family:'Inter',sans-serif;max-width:520px;}
 
-  /* SERVICIOS — horizontal gallery */
   .services{background:var(--bg-elevated);border-bottom:1px solid var(--line);}
   .gallery{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
   .gallery::-webkit-scrollbar{height:4px;}
@@ -172,7 +166,6 @@
   .scroll-cue svg{width:16px;height:16px;animation:arrowMove 1.6s ease-in-out infinite;}
   @keyframes arrowMove{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
 
-  /* NOSOTROS */
   .about-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:72px;align-items:center;max-width:1180px;margin:0 auto;}
   .about-steps{list-style:none;margin-top:36px;display:flex;flex-direction:column;gap:20px;}
   .about-steps li{padding-top:16px;border-top:1px solid var(--line);}
@@ -181,7 +174,6 @@
   .about-visual{position:relative;aspect-ratio:1/1;border:1px solid var(--line);border-radius:4px;background:radial-gradient(circle at 30% 30%, rgba(124,111,240,0.10), transparent 55%),radial-gradient(circle at 75% 75%, rgba(76,224,210,0.08), transparent 55%);display:flex;align-items:center;justify-content:center;overflow:hidden;}
   .about-visual svg{width:78%;height:78%;}
 
-  /* CONTACTO */
   .contact{background:radial-gradient(circle at 20% 20%, rgba(124,111,240,0.08), transparent 50%),radial-gradient(circle at 80% 80%, rgba(76,224,210,0.06), transparent 50%);}
   .contact-intro{max-width:640px;margin:0 auto 56px;text-align:center;}
   .contact-intro p{color:var(--text-dim);margin-top:18px;font-size:1.05rem;line-height:1.6;font-family:'Inter',sans-serif;}
@@ -204,13 +196,11 @@
 
   a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
 
-  /* GRAIN TEXTURE */
   #grain{
     position:fixed;inset:0;z-index:60;pointer-events:none;opacity:0.05;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* CUSTOM CURSOR (desktop only) */
   .cursor-dot, .cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:90;border-radius:50%;transform:translate(-50%,-50%);}
   .cursor-dot{width:6px;height:6px;background:var(--accent);transition:opacity .2s ease;}
   .cursor-ring{width:34px;height:34px;border:1px solid var(--accent-2);transition:width .25s ease, height .25s ease, border-color .25s ease, opacity .2s ease;opacity:.7;}
@@ -334,7 +324,7 @@
 
 <section id="servicios" class="services">
   <div class="section-head reveal">
-    <span class="eyebrow">[ 01 — SERVICIOS ]</span>
+    <span class="eyebrow">SERVICIOS</span>
     <h2 class="big-headline">Lo que<br><span class="cyan">construimos</span></h2>
     <p>No trabajamos con un solo tipo de solución. Analizamos el problema y construimos con la tecnología que corresponde.</p>
   </div>
@@ -381,7 +371,7 @@
 <section id="nosotros">
   <div class="about-grid">
     <div class="reveal">
-      <span class="eyebrow mono">[ 02 — NOSOTROS ]</span>
+      <span class="eyebrow mono">NOSOTROS</span>
       <h2 class="big-headline" style="margin-top:18px;">Empezamos por <span class="cyan">entender</span><br>el negocio</h2>
       <p style="color:var(--text-dim);margin-top:20px;font-size:1.05rem;line-height:1.65;max-width:480px;">No vendemos tecnología por vender. Antes de proponer una solución entendemos tu operación real: qué proceso quieres resolver y cómo trabaja tu equipo hoy.</p>
       <ul class="about-steps">
@@ -429,7 +419,7 @@
 
 <section id="contacto" class="contact">
   <div class="contact-intro reveal">
-    <span class="eyebrow mono">[ 03 — CONTACTO ]</span>
+    <span class="eyebrow mono">CONTACTO</span>
     <h2 class="big-headline" style="margin-top:18px;">¿Tienes un problema que<br><span class="cyan">resolver</span>?</h2>
     <p>Cuéntanos qué necesitas. Respondemos por correo, WhatsApp o Instagram — sin formularios largos ni procesos complicados.</p>
   </div>
@@ -472,7 +462,6 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isFinePointer = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
 
-  /* custom cursor */
   if(isFinePointer){
     const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
@@ -492,7 +481,6 @@
       el.addEventListener('mouseleave', ()=> ring.classList.remove('hovering'));
     });
 
-    /* magnetic buttons */
     document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn=>{
       btn.addEventListener('mousemove', e=>{
         const r = btn.getBoundingClientRect();
@@ -504,7 +492,6 @@
     });
   }
 
-  /* internal anchor links: scroll manually instead of relying on href="#id" navigation */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click', e=>{
       e.preventDefault();
@@ -514,7 +501,6 @@
     });
   });
 
-  /* scroll progress bar */
   const progress = document.getElementById('progress');
   window.addEventListener('scroll', ()=>{
     const h = document.documentElement;
@@ -522,18 +508,15 @@
     progress.style.width = pct + '%';
   });
 
-  /* nav shrink on scroll */
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY > 40); });
 
-  /* marquee content */
   const items = ['SOFTWARE A MEDIDA','CHATBOTS','PÁGINAS WEB','AUTOMATIZACIÓN DE PROCESOS','SISTEMAS DE GESTIÓN'];
   const track = document.getElementById('marqueeTrack');
   for(let r=0;r<2;r++){
     items.forEach(t=>{ const s=document.createElement('span'); s.textContent=t; track.appendChild(s); });
   }
 
-  /* glow follows cursor within hero */
   const glow = document.getElementById('glow');
   const heroEl = document.querySelector('.intro-sticky');
   heroEl.addEventListener('mousemove', e=>{
@@ -542,7 +525,6 @@
     glow.style.top = (e.clientY-r.top)+'px';
   });
 
-  /* intro laptop zoom, driven by scroll position within the pinned stage */
   const introStage = document.getElementById('inicio');
   const laptopWrap = document.getElementById('laptopWrap');
   const heroContent = document.getElementById('heroContent');
@@ -581,7 +563,6 @@
     updateIntro();
   }
 
-  /* scroll reveal, staggered per group */
   const groups = {};
   document.querySelectorAll('.reveal').forEach(el=>{
     const parent = el.closest('section') || el.closest('header');
@@ -600,7 +581,6 @@
   }, {threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
 
-  /* node network signature element */
   const canvas = document.getElementById('nodeCanvas');
   const ctx = canvas.getContext('2d');
   let w, h, nodes = [];
